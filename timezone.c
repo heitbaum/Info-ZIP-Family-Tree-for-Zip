@@ -39,6 +39,7 @@
 
 #include "zip.h"
 #include "timezone.h"
+#include <time.h>
 #include <ctype.h>
 #include <errno.h>
 

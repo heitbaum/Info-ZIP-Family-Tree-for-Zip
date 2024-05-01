@@ -2712,7 +2712,7 @@ fi
 echon 'Check for errno declaration...'
 cat > conftest.c << _EOF_
 #include <errno.h>
-main()
+int main()
 {
   errno = 0;
   return 0;
@@ -2747,6 +2747,7 @@ fi
 # Check for directory traversal libraries.
 echon 'Check for directory traversal libraries (ndir, dirent, bsd, ...)...'
 cat > conftest.c << _EOF_
+#include <dirent.h>
 int main() { return closedir(opendir(".")); }
 _EOF_
 $CC_TST $CFLAGS -o conftest conftest.c >/dev/null 2>/dev/null
@@ -2972,11 +2973,13 @@ done
 # Needed for AIX (and others ?) when mmap is used.
 echon 'Check for valloc()...'
 cat > conftest.c << _EOF_
-main()
+#include <stdlib.h>
+int main()
 {
 #ifdef MMAP
     valloc();
 #endif
+    return 0;
 }
 _EOF_
 ${CC_TST} ${CFLAGS} ${CFLAGS_OPT} ${CFLAGS_TST} ${CFLAGS_USR} \
